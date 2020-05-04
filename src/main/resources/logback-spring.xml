@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+
+    <!-- 로컬 -->
+    <springProfile name="default">
+
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-3level %logger{5} - %msg %n</pattern>
+            </encoder>
+        </appender>
+
+        <logger name="org.hibernate.SQL" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.hibernate.type" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <logger name="com.mindone.okch" level="DEBUG" additivity="false">
+            <appender-ref ref="STDOUT" />
+        </logger>
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+        </root>
+    </springProfile>
+
+    <!-- 개발 -->
+    <springProfile name="dev">
+        <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+            <encoder>
+                <pattern>%d{yyyyMMdd HH:mm:ss.SSS} [%thread] %-3level %logger{5} - %msg %n</pattern>
+            </encoder>
+        </appender>
+
+        <!-- 변수 지정 -->
+        <property name="LOG_DIR" value="C:\\project\\logs\\okcheon-api" />
+        <property name="LOG_PATH_NAME" value="${LOG_DIR}\\application.log" />
+
+        <!-- FILE Appender -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH_NAME}</file>
+            <!-- 일자별로 로그파일 적용하기 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+                <maxHistory>60</maxHistory>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="STDOUT" />
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+    <!-- 운영 -->
+    <springProfile name="real">
+        <!-- 변수 지정 -->
+        <property name="LOG_DIR" value="/server/tomcat/logs/" />
+        <property name="LOG_PATH_NAME" value="${LOG_DIR}/application-api.log" />
+
+        <!-- FILE Appender -->
+        <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+            <file>${LOG_PATH_NAME}</file>
+            <!-- 일자별로 로그파일 적용하기 -->
+            <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+                <fileNamePattern>${LOG_PATH_NAME}.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+                <maxFileSize>10MB</maxFileSize>
+            </rollingPolicy>
+            <encoder>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%-5p] [%F]%M\(%L\) : %m%n</pattern>
+            </encoder>
+        </appender>
+        <root level="INFO">
+            <appender-ref ref="FILE" />
+        </root>
+    </springProfile>
+
+</configuration>
