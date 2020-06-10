@@ -26,11 +26,10 @@ public interface TableRepository extends JpaRepository<Menu, String> {
 			"       ), 1, 'PK', 2, 'FK', '') IS_PK" + 
 			"     , DATA_DEFAULT" + 
 			" FROM ALL_TAB_COLUMNS ATC" + 
-			" WHERE ATC.OWNER = 'UEW2PRO'" + 
-			"   AND ATC.TABLE_NAME NOT LIKE '%BAK'" + 
+			" WHERE ATC.TABLE_NAME NOT LIKE '%BAK'" + 
 			"   AND ATC.TABLE_NAME NOT LIKE '%1'" + 
-			"   AND ATC.TABLE_NAME NOT LIKE 'MDRT%'" + 
-			"   AND ATC.TABLE_NAME LIKE 'CM_SYSTEM_MTR%'" , nativeQuery = true)
+			"   AND ATC.TABLE_NAME NOT LIKE 'MDRT%'"  , nativeQuery = true)
 	List<Map<String,Object>> tablelayout() throws Exception;
 	
 }
+//ATC.OWNER = 'UEW2PRO_PTK'" + 
