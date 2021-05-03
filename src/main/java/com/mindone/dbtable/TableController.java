@@ -49,7 +49,7 @@ public class TableController {
 		try {
 			
 			List<Map<String,Object>> columnList = tableRepository.tablelayout();
-			System.out.println("size : " + columnList.size());
+			System.out.println("size : " + columnList.size()); 
 			// 엑셀 생성
 			workbook = makeExcelWorkbook(columnList);
 			response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");

@@ -25,7 +25,7 @@ public interface TableRepository extends JpaRepository<Menu, String> {
 			"               AND POSITION IS NOT NULL " + 
 			"       ), 1, 'PK', 2, 'FK', '') IS_PK" + 
 			"     , DATA_DEFAULT" + 
-			" FROM ALL_TAB_COLUMNS ATC" + 
+			" FROM USER_TAB_COLUMNS ATC" + 
 			" WHERE ATC.TABLE_NAME NOT LIKE '%BAK'" + 
 			"   AND ATC.TABLE_NAME NOT LIKE '%1'" + 
 			"   AND ATC.TABLE_NAME NOT LIKE 'MDRT%'"  , nativeQuery = true)
